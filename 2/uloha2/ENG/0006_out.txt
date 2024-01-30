@@ -1,3 +1,0 @@
-Point A:
-Point B:
-Invalid input.
