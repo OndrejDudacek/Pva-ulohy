@@ -1,5 +1,5 @@
-origin = [100, 100, 0]
-destination = [300, 100, 200]
+origin = [100,100,0]
+destination = [50, 50, "test"]
 size = 300
 
 def getDistancesToEdges(point, size):
@@ -13,11 +13,13 @@ def checkNearEdge(point, size):
     on_cube = 0 in point or size in point
     return c == 1 and on_cube
     
-if len(origin) != 3 or len(destination) != 3:
+if len(origin) != 3 or len(destination) != 3 or not isinstance(size, (int, float)) or size <= 0 or not all(isinstance(coordinate, (int, float)) for coordinate in origin) or not all(isinstance(coordinate, (int, float)) for coordinate in destination) or not all(0 <= coordinate <= size for coordinate in origin) or not all(0 <= coordinate <= size for coordinate in destination) or any(0 < coordinate < 20 or size - 20 < coordinate < size for coordinate in origin) or any(0 < coordinate < 20 or size - 20 < coordinate < size for coordinate in destination) or not checkNearEdge(origin, size) or not checkNearEdge(destination, size) or not any([abs(a-b) == size for a,b in zip(origin,destination)]):
     print("neplatný vstup")
+    exit()
 
 if not (checkNearEdge(origin, size) and checkNearEdge(destination, size)):
     print("Nevyhovující rozměr")
+    exit()
 
 distances = [abs(a-b) for a,b in zip(origin,destination)] 
 
