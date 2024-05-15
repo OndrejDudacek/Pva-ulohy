@@ -68,7 +68,9 @@ findInputsAndOutputs();
 for (let i in inputs){
   const inputFile = inputs[i];
   const outputFile = outputs[i];
-  const {input, expectedOutput} = readInputAndOutput(inputFile, outputFile);
+  const [inputAndOutput] = readInputAndOutput(inputFile, outputFile);
+  const input = inputAndOutput.split("\n")[0];
+  const expectedOutput = inputAndOutput.split("\n")[1];
   const sequence = input.split(" ").map((num) => parseInt(num));
   const pairCount = calculateSumPairs(sequence);
   const output = generateOutput(pairCount);
