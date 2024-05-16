@@ -25,3 +25,23 @@ const generateOutput = (message) => {
 };
 
 findInputsAndOutputs();
+let [input, expectedOutput] = readInputAndOutput(inputs[0], outputs[0]);
+input = input.split("\n\n").map((x) => x.split("\n"));
+let rack = input.shift();
+const racks = [];
+let index = null;
+for (const item of rack) {
+  if (item.includes("#")) {
+    if (index !== null) {
+      index++;
+    } else {
+      index = 0;
+    }
+    racks[index] = [];
+  } else {
+    racks[index].push(item);
+  }
+}
+for (const item of input) {
+    
+}
