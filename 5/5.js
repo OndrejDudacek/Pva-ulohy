@@ -45,22 +45,41 @@ const calculateDistances = (planes) => {
 
 findInputsAndOutputs();
 for (const inputIndex in inputs) {
+  let running = true;
+  console.log(inputs[inputIndex]);
   const [input, expectedOutput] = readInputAndOutput(
     inputs[inputIndex],
     outputs[inputIndex]
   );
   let planes = input.split("\n");
   for (const i in planes) {
+    if (
+      !planes[i].includes(":") ||
+      !planes[i].includes(",") ||
+      planes.length < 2
+    ) {
+      console.log(expectedOutput + "\n---");
+      console.log(`Pozice letadel:\nNesprávný vstup.`);
+      console.log("\n-------------------------------------------\n");
+      running = false;
+      break;
+    }
+
     planes[i] = planes[i].split(": ");
     planes[i][0] = planes[i][0].split(",");
     planes[i][0] = planes[i][0].map((x) => parseFloat(x));
+
     if (planes[i].length !== 2) {
       console.log(expectedOutput + "\n---");
       console.log(`Pozice letadel:\nNesprávný vstup.`);
       console.log("\n-------------------------------------------\n");
+      running = false;
+      break;
     }
   }
-  console.log(planes);
+  if (!running) {
+    continue;
+  }
   let distances = calculateDistances(planes);
   let smallestDistance = Number.MAX_SAFE_INTEGER;
   for (const distance in distances) {
