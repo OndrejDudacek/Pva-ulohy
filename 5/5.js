@@ -1,4 +1,3 @@
-const { log } = require("console");
 const fs = require("fs");
 
 const inputs = [];
@@ -19,10 +18,6 @@ const readInputAndOutput = (input, output) => {
   const inputFileContents = fs.readFileSync(input, "utf8").trim();
   const outputFileContents = fs.readFileSync(output, "utf8").trim();
   return [inputFileContents, outputFileContents];
-};
-
-const generateOutput = (message) => {
-  return `Posloupnost:\n${message}`;
 };
 
 const calculateDistances = (planes) => {
