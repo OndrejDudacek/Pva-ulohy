@@ -42,6 +42,47 @@ for (const item of rack) {
     racks[index].push(item);
   }
 }
-for (const item of input) {
-    
+let inRack = false;
+let itemsArray = [];
+for (const shopingList of input) {
+  for (const item of shopingList) {
+    for (const rackIndex in racks) {
+      for (const rackItem of racks[rackIndex]) {
+        if (
+          item.toLowerCase() === rackItem.toLowerCase() ||
+          rackItem.toLowerCase().includes(item.toLowerCase())
+        ) {
+          itemsArray.push({
+            shopingList: input.indexOf(shopingList),
+            rack: rackIndex,
+            originalName: item,
+            rackName: rackItem,
+          });
+          inRack = true;
+        }
+      }
+    }
+    if (!inRack) {
+      itemsArray.push({
+        shopingList: input.indexOf(shopingList),
+        rack: "",
+        originalName: item,
+        rackName: "N/A",
+      });
+    }
+  }
+}
+itemsArray.sort((a, b) => a.rack - b.rack);
+
+for (const shopingListIndex in input) {
+  console.log("Optimalizovany seznam:");
+  let optimaizedItemIndex = 0;
+  for (const object of itemsArray) {
+    if (object.shopingList == shopingListIndex) {
+      console.log(
+        ` ${optimaizedItemIndex}. ${object.originalName} -> #${object.rack} ${object.rackName}`
+      );
+      optimaizedItemIndex++;
+    }
+  }
 }
